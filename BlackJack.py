@@ -1,3 +1,6 @@
+import db as db
+
+
 def makeCards():
     suits = ["clubs", "hearts", "spades", "diamonds"]
     ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
@@ -16,7 +19,11 @@ def makeCards():
     return deck
 
 def main():
-    print(makeCards())
+    db.addMoney(50)
+    money = db.viewMoney()
+    print(money)
+
+
 
 if __name__ == '__main__':
     main()

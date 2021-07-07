@@ -10,13 +10,13 @@ def viewMoney():
         print("Error Occurred", type(e), e)
         exit()
 
-def addMoney(bjWins):
+def winMoney(bjWins):
     startMoney = viewMoney()
     winMoney = startMoney + bjWins
     with open("money.txt", "w", newline="") as file:
         file.write(str(winMoney))
 
-def dropMoney(bjLoss):
+def betMoney(bjLoss):
     startMoney = viewMoney()
     lossMoney = startMoney - bjLoss
     with open("money.txt", "w", newline="") as file:

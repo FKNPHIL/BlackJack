@@ -24,8 +24,11 @@ def main():
     print("WELCOME TO BLACKJACK!")
     print("BlackJack Payout is 3:2\n")
     print("Your Available Money: "+ str(db.viewMoney()))
-    choice = input("Would you like to play a game (y/n) >>")
-    while choice.lower() == "y":
+    while True:
+
+        choice = input("Would you like to play a game (y/n) >>")
+        if choice.lower() == "n":
+            break
         deck = makeCards()
         wager = pG.getWager()
         playerCards = pG.playerCards(deck)
@@ -33,47 +36,52 @@ def main():
         playerScore = pG.getScores(playerCards)
         dealerScore = pG.getScores(dealerCards)
         print("\nDEALER'S SHOW CARD:")
-        for card in dealerCards:
-            print(card[1], card[0])
+        print(dealerCards[0][1] + dealerCards[0][0])
+        print("? ???")
+        # for card in dealerCards:
+        #     print(card[1], card[0])
         print("\nYOUR CARDS:")
         for card in playerCards:
             print(card[1], card[0])
         print()
 
-        playerChoice = input("h to Hit or s to Stand (h/s): ")
-        if playerChoice.lower() != "h" and playerChoice.lower() != "s":
-            print("You must enter either 'h' or 's'")
+
+        while playerScore <=20:
+            playerChoice = input("h to Hit or s to Stand (h/s): ")
+            if playerChoice.lower() != "h" and playerChoice.lower() != "s":
+                print("You must enter either 'h' or 's'")
+                continue
+
+            if playerChoice.lower() == "h":
+                playerCard = random.choice(deck)
+                playerCards.append(playerCard)
+                deck.remove(playerCard)
+                print(playerCards)
+                playerScore = pG.getScores(playerCards)
+                for card in playerCards:
+                    print(card[1], card[0])
+
+            else:
+                print("DEALERS CARDS")
+                for card in dealerCards:
+                    print(card[1], card[0])
+                break
+        if playerScore > 21:
+            print("YOU BUSTED")
+            #loss
+
             continue
 
-        if playerChoice.lower() == "h":
-            playerCards = []
-            playerCard = random.choice(deck)
-            playerCards.append(playerCard)
-            deck.remove(playerCard)
-            print(playerCards)
-            for card in playerCards:
-                print(card[1], card[0])
-            
+        while dealerScore <=17:
+            print("DEAL MUST HIT")
+            dealerCard = random.choice(deck)
+            dealerCards.append(dealerCard)
+            deck.remove(dealerCard)
+            print(dealerCard[1], dealerCard[0])
+            dealerScore = pG.getScores(dealerCards)
 
-
-
-        print("BYE!")
-        break
-    db.betMoney(wager)
-    db.winMoney(0)
-    money = db.viewMoney()
-    print(money)
-    print(makeCards())
-    exit()
-
-    #playerCard1;
-    #dealerCard1;
-    #playerCard2;
-    #dealerCard2;
-
-
-
-
+        print(dealerScore)
+        didWin = pG.checkForWin()
 
 if __name__ == '__main__':
     main()

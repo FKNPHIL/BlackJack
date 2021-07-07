@@ -37,6 +37,10 @@ def dealerCards(deck):
     dealerCards.append(dealerCard)
     deck.remove(dealerCard)
 
+    dealerCard = random.choice(deck)
+    dealerCards.append(dealerCard)
+    deck.remove(dealerCard)
+
     return dealerCards
 
 
@@ -70,3 +74,20 @@ def playerChoice(deck):
             return dealerCards
         else:
             break
+
+def checkForWin(playerScores, dealerScores):
+    if (playerScores == dealerScores):
+        print("GAME IS TIED")
+        return 0
+    if (playerScores > 21):
+        print("YOU HAVE LOST SORRY!")
+        return -1
+    if (dealerScores > 21):
+        print("YOU HAVE WON CONGRATS!")
+        return 1
+    if (playerScores > dealerScores):
+        print("YOU HAVE WON CONGRATS!")
+        return 1
+    if (playerScores < dealerScores):
+        print("YOU HAVE LOST SORRY!")
+        return -1

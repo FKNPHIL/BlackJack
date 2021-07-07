@@ -1,11 +1,22 @@
 import random
 
+def getChoice():
+    while True:
+        choice = input("Would you like to play a game (y/n) >>")
+        if choice.lower() == "y":
+            return choice
+        if choice.lower() == "n":
+            print("OK GOODBYE!")
+            exit()
+        if choice.lower() != "y":
+            print("YOU MUST ENTER 'Y' or 'N'")
+            continue
 
 def getWager():
     while True:
         try:
             wagerAmount = int(input("Enter your wager amount (5 to 1000) >>"))
-            if wagerAmount <= 0 or wagerAmount > 1000:
+            if wagerAmount < 5 or wagerAmount > 1000:
                 print("You must enter a correct number between 5 and 1000")
                 continue
             return wagerAmount

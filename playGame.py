@@ -69,28 +69,28 @@ def getScores(handCards):
     return total
 
 
-def playerChoice(deck):
-    while True:
-        try:
-            playerChoice = input("(H)it or (S)tand >>")
-            if playerChoice.lower() != "h" and playerChoice.lower() != "s":
-                print("You must enter either 'h' or 's'")
-                continue
-        except ValueError:
-            print("Invalid selection. Please choose h or s only")
-        except Exception as e:
-            print("Error Occurred", type(e), e)
-            exit()
-
-
-        if playerChoice.lower() == "s":
-            dealerCards = []
-            dealerCard = random.choice(deck)
-            dealerCards.append(dealerCard)
-            deck.remove(dealerCard)
-            return dealerCards
-        else:
-            break
+# def playerChoice(deck):
+#     while True:
+#         try:
+#             playerChoice = input("(H)it or (S)tand >>")
+#             if playerChoice.lower() != "h" and playerChoice.lower() != "s":
+#                 print("You must enter either 'h' or 's'")
+#                 continue
+#         except ValueError:
+#             print("Invalid selection. Please choose h or s only")
+#         except Exception as e:
+#             print("Error Occurred", type(e), e)
+#             exit()
+#
+#
+#         if playerChoice.lower() == "s":
+#             dealerCards = []
+#             dealerCard = random.choice(deck)
+#             dealerCards.append(dealerCard)
+#             deck.remove(dealerCard)
+#             return dealerCards
+#         else:
+#             break
 
 def checkForWin(playerScores, dealerScores):
     if (playerScores == dealerScores):

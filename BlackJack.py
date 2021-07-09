@@ -27,6 +27,7 @@ def main():
     print("Your Available Money: " + str(db.viewMoney()))
     if db.viewMoney() <= 4:
         getMoney = pG.getMoney()
+
     while True:
         choice = pG.getChoice()
         wager = pG.getWager()
@@ -52,6 +53,12 @@ def main():
                 dealerCards[0][2] = 1
                 dealerScore -= 10
 
+        if playerScore == 21:
+            print("BLACKJACK you win")
+            bjWin = db.winMoney(wager * 1.5)
+            continue
+
+
         while playerScore <= 21:
             playerChoice = input("(H)it or (S)tand >>")
             if playerChoice.lower() != "h" and playerChoice.lower() != "s":
@@ -63,6 +70,11 @@ def main():
                 playerCards.append(playerCard)
                 deck.remove(playerCard)
                 playerScore = pG.getScores(playerCards)
+                if playerScore > 21:
+                    for card in playerCards:
+                        if card[2] == 11:
+                            card[2] = 1
+                            playerScore -= 10
                 for card in playerCards:
                     print(card[1], card[0])
             else:
@@ -74,7 +86,7 @@ def main():
                 print("YOU BUSTED")
                 break
 
-        while dealerScore <=17 and playerScore <= 21:
+        while dealerScore <= 17 and playerScore <= 21:
             print("DEALER MUST HIT")
             dealerCard = random.choice(deck)
             dealerCards.append(dealerCard)
@@ -82,6 +94,11 @@ def main():
             input("Press enter to continue....")
             print(dealerCard[1], dealerCard[0])
             dealerScore = pG.getScores(dealerCards)
+            if dealerScore > 21:
+                for card in dealerCards:
+                    if card[2] == 11:
+                        card[2] = 1
+                        dealerScore -= 10
 
         if dealerScore == 21:
             print("DEALER HAS BLACKJACK")

@@ -2,7 +2,6 @@ import db as db
 import playGame as pG
 import random
 
-
 def makeCards():
     suits = ["♣", "♥", "♠", "♦"]
     ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
@@ -41,8 +40,8 @@ def main():
         print("\nYOUR CARDS:")
         for card in playerCards:
             print(card[1], card[0])
-        print()
 
+        #deal with double ACES being dealt
         if len(playerCards) == 2:
             if (playerCards[0][2]) == 11 and (playerCards[1][2]) == 11:
                 playerCards[0][2] = 1
@@ -58,9 +57,8 @@ def main():
             bjWin = db.winMoney(wager * 1.5)
             continue
 
-
         while playerScore <= 21:
-            playerChoice = input("(H)it or (S)tand >>")
+            playerChoice = input("\n(H)it or (S)tand >>")
             if playerChoice.lower() != "h" and playerChoice.lower() != "s":
                 print("You must enter either 'h' or 's'")
                 continue
@@ -86,7 +84,7 @@ def main():
                 print("YOU BUSTED")
                 break
 
-        while dealerScore <= 17 and playerScore <= 21:
+        while dealerScore <= 16 and playerScore <= 21:
             print("DEALER MUST HIT")
             dealerCard = random.choice(deck)
             dealerCards.append(dealerCard)
@@ -104,9 +102,8 @@ def main():
             print("DEALER HAS BLACKJACK")
         if dealerScore > 21:
             print("DEALER BUSTED")
-        if playerScore == 21 and dealerScore > 17:
-            print()
-            print("YOU GOT BLACKJACK!!")
+        if playerScore == 21:
+            print("\nYou got BLACKJACK!")
 
         print()
         print("Players Score is "+str(playerScore))

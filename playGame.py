@@ -3,21 +3,22 @@ import db as db
 import sys
 
 def getChoice():
-   choice = input("\nWould you like to play a game? (Y)es or (N)o >>")
-   if choice.lower() == "y":
-       return choice
-   if choice.lower() == "n":
-       print("OK GOODBYE!")
-       exit()
-   if choice.lower() != "y":
-       print("YOU MUST ENTER 'Y' or 'N'")
-
+    while True:
+        choice = input("\nWould you like to play a game? (Y)es or (N)o >>")
+        if choice.lower() == "y":
+           return choice
+        if choice.lower() == "n":
+            print("OK GOODBYE!")
+            exit()
+        if choice.lower() != "y":
+            print("YOU MUST ENTER 'Y' or 'N'")
+            continue
 
 def getWager():
     maxWagerAmount = db.viewMoney()
     while True:
         try:
-            wagerAmount = int(input("Enter your wager amount (5 to 1000) >>"))
+            wagerAmount = round(float(input("Enter your wager amount (5 to 1000) >>")), 2)
             if wagerAmount < 5 or wagerAmount > 1000:
                 print("You must enter a correct number between 5 and 1000")
                 continue
@@ -32,7 +33,6 @@ def getWager():
             print("Error occurred", type(e), e)
             exit()
 
-
 def playerCards(deck):
     playerCards = []
 
@@ -45,7 +45,6 @@ def playerCards(deck):
     deck.remove(playerCard)
 
     return playerCards
-
 
 def dealerCards(deck):
     dealerCards = []
@@ -60,37 +59,12 @@ def dealerCards(deck):
 
     return dealerCards
 
-
 def getScores(handCards):
     total = 0
     for card in handCards:
         score = card[2]
         total += score
     return total
-
-
-# def playerChoice(deck):
-#     while True:
-#         try:
-#             playerChoice = input("(H)it or (S)tand >>")
-#             if playerChoice.lower() != "h" and playerChoice.lower() != "s":
-#                 print("You must enter either 'h' or 's'")
-#                 continue
-#         except ValueError:
-#             print("Invalid selection. Please choose h or s only")
-#         except Exception as e:
-#             print("Error Occurred", type(e), e)
-#             exit()
-#
-#
-#         if playerChoice.lower() == "s":
-#             dealerCards = []
-#             dealerCard = random.choice(deck)
-#             dealerCards.append(dealerCard)
-#             deck.remove(dealerCard)
-#             return dealerCards
-#         else:
-#             break
 
 def checkForWin(playerScores, dealerScores):
     if (playerScores == dealerScores):
@@ -110,8 +84,8 @@ def checkForWin(playerScores, dealerScores):
         return -1
 
 def getMoney():
-    getMoney = input("You don't have enough money. Would you like to get more? (Y)es or (N)o >>")
     while True:
+        getMoney = input("You don't have enough money. Would you like to get more? (Y)es or (N)o >>")
         if getMoney.lower() == "y":
             bjWin = db.winMoney(1000)
             input("1000 added. Press enter to continue....")
@@ -121,5 +95,4 @@ def getMoney():
             sys.exit()
         else:
             print("You need to enter 'y' or 'n'")
-            print("Error occurred Exiting program")
-            sys.exit()
+            continue
